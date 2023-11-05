@@ -4,6 +4,7 @@ import pandas as pd
 from io import StringIO
 import sklearn
 import re
+import random
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import MiniBatchKMeans
 from imblearn.under_sampling import ClusterCentroids
@@ -20,20 +21,14 @@ import ecg_plot
 import matplotlib.pyplot as plt
 import csv
 import seaborn as sns
+import yaml
 
-# create config for constants, filepaths
-# push code to github
-# ask professor if i need all 12 wqves to make predictions or maybe the first 6 are most important and distinguishable 
-# maybe i could do undersampling on the whole dataset since no dublicates will be added
-# check 0 and 1 inconfusion matrix, check recall and precision, save as png
-# would be nice to see a ration of majority class to minority class
+random.seed(10)
+
 # plot noraml and abnormal ecgs on the same plot
-# use only one lead! use spectograms
 # cross validation for cnn is possible, do it
-# constany seed!
 # use gpus to train models?
-# for binary classification i combined the recoed with normal and otherwise normal diagnoses, it decreased percentage of false negatives from 21% to 16%
-# normally 703 files get skipped, adding bmi check changed it to 
+# normally 703 files get skipped
 # sample rate - 500Hz!
 
 def raw_wave_processing(wave):
@@ -271,10 +266,20 @@ def train_and_test_CNN(X_resampled, y_resampled, testing_X, testing_y):
     
     cf_matrix = confusion_matrix(y_resampled, reverse_one_hot(predictions_CC_train))
     depict_confusion_matrix(cf_matrix, 'Training set (full)')
+
+def get_config():
+    with open("config.yaml", 'r') as stream:
+        config_from_file = yaml.safe_load(stream)
+    return config_from_file
     
     
-if __name__ == "__main__":
-    dirs = ['/groups/umcg-endocrinology/tmp02/projects/ukb-55495/data/metaData/v5/xml_T3/', "/groups/umcg-endocrinology/tmp02/projects/ukb-55495/data/metaData/v5/xml_T2/"]
+def main():
+    config = get_config()
+    dirs = config['data_directories']
+    filepath_to_X_values = config['filepath_to_X_values'] 
+    filepath_to_y_values_2_classes = config['filepath_to_y_values_2_classes']
+    filepath_to_y_values_3_classes = config['filepath_to_y_values_3_classes']
+
     # read and persist only the first lead
     # X, data_labels_2_classes, data_labels_3_classes = read_data(dirs, get_1lead_waveform)
     # read and persist all the 12 leads
@@ -283,16 +288,16 @@ if __name__ == "__main__":
     # the same amount of files was skipped wihch means that all the patients are within the normal bmi range
     X, data_labels_2_classes, data_labels_3_classes = read_data(dirs, get_1lead_waveform, True)
 
-    persist_data(X, [data_labels_2_classes], [data_labels_3_classes], 'waves_full_1lead_normalBMI.csv', 'labels_full_2_classes_1lead_normalBMI.csv', 'labels_full_3_classes_1lead_normalBMI.csv')
+    persist_data(X, [data_labels_2_classes], [data_labels_3_classes], filepath_to_X_values, filepath_to_y_values_2_classes, filepath_to_y_values_3_classes)
     
     # st = time.time()
-    # waves = read_data_from_file('waves_full.csv')
+    # waves = read_data_from_file(filepath_to_X_values)
     # print(waves.shape)
     
-    # labels2 = read_data_from_file('labels_full_2_classes.csv')[0]
+    # labels2 = read_data_from_file(filepath_to_y_values_2_classes)[0]
     # print(labels2.shape)
 
-    # labels3 = read_data_from_file('labels_full_3_classes.csv')[0]
+    # labels3 = read_data_from_file(filepath_to_y_values_3_classes)[0]
     # print(labels3.shape)
     # elapsed_time = time.time() - st
     # print('Reading data time:', elapsed_time/60, 'minutes')
@@ -304,7 +309,9 @@ if __name__ == "__main__":
     # train_and_test_CNN(X_resampled, y_resampled, testing_X, testing_y)
     # elapsed_time = time.time() - st
     # print('Training data time:', elapsed_time/60, 'minutes')
-    
 
+
+if __name__ == "__main__":
+    main()
 
 
