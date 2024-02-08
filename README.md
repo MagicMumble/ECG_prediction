@@ -1,5 +1,5 @@
-# ECG_prediction
-Detecting of the Acute Myocardial Infarction based on the electrocardiograms using Convolutional Neural Network
+# Detecting of the Acute Myocardial Infarction based on the electrocardiograms using Convolutional Neural Network
+(Master's thesis)
 
 Acute myocardial infarction (AMI), commonly known as heart attack, requires timely detection to prevent severe health-related complications. This study aims to foster the development of automated AMI recognition systems based solely on electrocardiogram (ECG).
 
