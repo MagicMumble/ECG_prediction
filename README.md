@@ -7,6 +7,8 @@ To this aim, 12-lead ECG recordings were obtained from the UK Biobank and gender
 
 This research shows the potential of automated AMI prediction tools based on ECGs. Embedding such algorithms in sensors could enable cost-effective and non-invasive monitoring, benefiting high-risk groups like those with familial heart conditions. Additionally, these algorithms could assist doctors by identifying readouts that warrant extra investigation.
 
-The `readingTheDiagnoses.ipynb` jupyter notebook contains the methods analysing the data, preprocessing and tranforming it. Also, the CNN models are build and trained in this notebook. The plots are build for visualization.
+The `ECG_analysis_and_classification.ipynb` jupyter notebook contains the methods analysing the data, preprocessing and tranforming it. Also, the CNN models are build and trained in this notebook. The plots are build for visualization.
 
-To run the jupyter notebook, the Python packages listed in the `conda_list` file should be installed. The Python of version 3.11.5 was used to run the notebook.
+To run the jupyter notebook, the Python packages listed in the `conda_list` file should be installed. The Python of version 3.11.5 was used to run the notebook. The blocks in the notebook are placed in a logical order so to follow the steps of the analysis it is sufficient to execute the code blocks one by one.
+
+Performed work goes under the MIT License. 
