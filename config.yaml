@@ -1,4 +1,3 @@
-data_directories: ['/groups/umcg-endocrinology/tmp02/projects/ukb-55495/data/metaData/v5/xml_T3/', '/groups/umcg-endocrinology/tmp02/projects/ukb-55495/data/metaData/v5/xml_T2/']
-filepath_to_X_values: '/home/umcg-asorova/project/waves_full_1lead_normalBMI.csv'
-filepath_to_y_values_2_classes: '/home/umcg-asorova/project/labels_full_2_classes_1lead_normalBMI.csv'
-filepath_to_y_values_3_classes: '/home/umcg-asorova/project/labels_full_3_classes_1lead_normalBMI.csv'
+path_to_ids: "../../dataICD/ids.txt"
+path_to_diagnoses: "../../dataICD/all_columns_diagnosisICD10.txt"
+ecg_dirs: ["/groups/umcg-endocrinology/tmp02/projects/ukb-55495/data/metaData/v5/xml_T3", "/groups/umcg-endocrinology/tmp02/projects/ukb-55495/data/metaData/v5/xml_T2"]
